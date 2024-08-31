@@ -1,0 +1,23 @@
+import json
+
+# Dados de faturamento diário
+faturamento_diario = [
+    200, 450, 300, 500, 400, 600, 350, 700, 800, 550, 620, 750,
+    690, 500, 400, 300, 450, 500, 600, 650, 700, 750, 800, 850,
+    900, 950, 1000, 1100, 1050, 980, 920, 870, 810, 750, 700,
+    650, 600, 550, 500, 450, 400, 350, 300
+]
+
+# Dados a serem salvos em JSON
+dados = {
+    "faturamento_diario": faturamento_diario
+}
+
+# Nome do arquivo JSON
+nome_arquivo = 'faturamento.json'
+
+# Salvando os dados em um arquivo JSON
+with open(nome_arquivo, 'w') as arquivo_json:
+    json.dump(dados, arquivo_json, indent=4)
+
+print(f"Arquivo '{nome_arquivo}' criado com sucesso!")
