@@ -3,35 +3,51 @@
 ele calcule a sequência de Fibonacci e retorne uma mensagem avisando se o número informado pertence ou não a sequência.
 
 R:
-def is_fibonacci_number(n):
-    # Função para verificar se um número é um número de Fibonacci
+import json
 
-    # Função para calcular o n-ésimo número de Fibonacci
-    def fibonacci(num):
-        a, b = 0, 1
-        while a <= num:
-            if a == num:
-                return True
-            a, b = b, a + b
-        return False
+def calcular_faturamento(faturamento_diario):
+    # Verificar se a lista está vazia
+    if not faturamento_diario:
+        return None, None, 0
 
-    if n < 0:
-        return False
+    # Calcular o menor e o maior valor de faturamento
+    menor_faturamento = min(faturamento_diario)
+    maior_faturamento = max(faturamento_diario)
 
-    return fibonacci(n)
+    # Calcular a média mensal
+    media_mensal = sum(faturamento_diario) / len(faturamento_diario)
+
+    # Contar o número de dias com faturamento acima da média
+    dias_acima_media = sum(1 for valor in faturamento_diario if valor > media_mensal)
+
+    return menor_faturamento, maior_faturamento, dias_acima_media
 
 def main():
+    nome_arquivo = 'faturamento.json'
+    
+    # Ler os dados do arquivo JSON
     try:
-        num = int(input("Digite um número para verificar se pertence à sequência de Fibonacci: "))
-        if is_fibonacci_number(num):
-            print(f"O número {num} pertence à sequência de Fibonacci.")
-        else:
-            print(f"O número {num} NÃO pertence à sequência de Fibonacci.")
-    except ValueError:
-        print("Por favor, insira um número inteiro válido.")
+        with open(nome_arquivo, 'r') as arquivo_json:
+            dados = json.load(arquivo_json)
+            faturamento_diario = dados.get("faturamento_diario", [])
+    except FileNotFoundError:
+        print(f"Arquivo '{nome_arquivo}' não encontrado.")
+        return
+    except json.JSONDecodeError:
+        print(f"Erro ao decodificar o arquivo JSON '{nome_arquivo}'.")
+        return
+
+    # Calcular os resultados
+    menor, maior, dias_acima_media = calcular_faturamento(faturamento_diario)
+
+    # Exibir os resultados
+    print(f"Menor valor de faturamento ocorrido em um dia do mês: R${menor}")
+    print(f"Maior valor de faturamento ocorrido em um dia do mês: R${maior}")
+    print(f"Número de dias com faturamento acima da média mensal: {dias_acima_media}")
 
 if __name__ == "__main__":
     main()
+
 
 --------------------------------------------------------------
 Rodando o código, temos: 
