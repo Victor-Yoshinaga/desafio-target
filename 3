@@ -1,0 +1,43 @@
+3) Dado um vetor que guarda o valor de faturamento diário de uma distribuidora, faça um programa, na linguagem que desejar, que calcule e retorne:
+• O menor valor de faturamento ocorrido em um dia do mês;
+• O maior valor de faturamento ocorrido em um dia do mês;
+• Número de dias no mês em que o valor de faturamento diário foi superior à média mensal.
+
+R:
+
+def calcular_faturamento(faturamento_diario):
+    if not faturamento_diario:
+        return None, None, 0
+
+    # Calcular o menor e o maior valor de faturamento
+    menor_faturamento = min(faturamento_diario)
+    maior_faturamento = max(faturamento_diario)
+
+    # Calcular a média mensal
+    media_mensal = sum(faturamento_diario) / len(faturamento_diario)
+
+    # Contar o número de dias com faturamento acima da média
+    dias_acima_media = sum(1 for valor in faturamento_diario if valor > media_mensal)
+
+    return menor_faturamento, maior_faturamento, dias_acima_media
+
+def main():
+    # Exemplo de vetor de faturamento diário (valores fictícios)
+    faturamento_diario = [200, 450, 300, 500, 400, 600, 350, 700, 800, 550, 620, 750,
+                          690, 500, 400, 300, 450, 500, 600, 650, 700, 750, 800, 850,
+                          900, 950, 1000, 1100, 1050, 980, 920, 870, 810, 750, 700,
+                          650, 600, 550, 500, 450, 400, 350, 300]
+
+    menor, maior, dias_acima_media = calcular_faturamento(faturamento_diario)
+
+    print(f"Menor valor de faturamento ocorrido em um dia do mês: R${menor}")
+    print(f"Maior valor de faturamento ocorrido em um dia do mês: R${maior}")
+    print(f"Número de dias com faturamento acima da média mensal: {dias_acima_media}")
+
+if __name__ == "__main__":
+    main()
+---------------------------------------------------------------
+Rodando o codigo, temos: 
+Menor valor de faturamento ocorrido em um dia do mês: R$200
+Maior valor de faturamento ocorrido em um dia do mês: R$1100
+Número de dias com faturamento acima da média mensal: 21
